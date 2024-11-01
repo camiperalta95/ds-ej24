@@ -14,18 +14,25 @@ $json = file_get_contents('php://input',true);
 $req = json_decode($json);
 
 $resp= new AgregarRespuesta();
+$resp->ItsOk=true;
 
-if($req->Titular->Direccion==null){
+
+if ($req->Titular->Direccion==null){
     $resp->ItsOk=false;
-    $resp->Mensaje=' la dirección es obligatoria ';
+    $resp->Mensaje .=' La dirección es obligatoria - ';
     }
-    if ($req->Titular->NroDocumento==null){
+if ($req->Titular->NroDocumento==null){
         $resp->ItsOk=false;
-        $resp->Mensaje=' la dirección es obligatoria ';
+        $resp->Mensaje .=' El numero de documento es obligatoria -';
         }
-        if($req->Titular->ApellidoNombre==null){
+if($req->Titular->ApellidoNombre==null){
             $resp->ItsOk=false;
-            $resp->Mensaje=' El nombre es obligatorio ';
+            $resp->Mensaje .=' El nombre es obligatorio - ';
             }
+
+if($resp->ItsOk == True){
+    $resp->Mensaje .= "Titular agregado correctamente - ";
+            }
+            
 
 echo json_encode ($resp);
